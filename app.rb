@@ -1,19 +1,9 @@
 require 'bundler'
 Bundler.require
 
-
-conn = PG::Connection.open()
-
-conn.exec('CREATE DATABASE restaurant;')
-conn.close
-
-conn = PG::Connection.open(dbname: 'restaurant')
-conn.exec('CREATE TABLE foods (id SERIAL PRIMARY KEY, name VARCHAR(100), cuisine VARCHAR(100), price INTEGER, description VARCHAR(255), allergens VARCHAR(100));')
-conn.exec('CREATE TABLE parties (id SERIAL PRIMARY KEY, name VARCHAR(50), size INTEGER, table_number INTEGER, has_paid boolean;')
-conn.exec('CREATE TABLE orders (id SERIAL PRIMARY KEY, parties_id INTEGER, foods_id INTEGER);')
-conn.close
-
-
+require_relative 'models/food'
+require_relative 'models/order'
+require_relative 'models/party'
 
 # --- Setup: Connection---
 ActiveRecord::Base.establish_connection({
@@ -28,58 +18,87 @@ end
 
 # GET: Display a list of food items available
 get '/foods' do 
-end
-
-# GET: Display a single food item and a list of all the parties that included it
-get '/foods/:id' do
+	@foods = Food.all
+	erb :'foods/index'
 end
 
 # GET: Display a form for a new food item
 get '/foods/new' do
+	erb :'foods/new'
+end
+
+# GET: Display a single food item and a list of all the parties that included it
+get '/foods/:id' do
+	@food = Food.find(params[:id])
+	# @parties = @food.parties
+	erb :'foods/show'
 end
 
 # CREATE/POST: Creates a new food item
 post '/foods' do
+	food = Food.create(params[:food])
+	redirect '/foods'
 end
 
 # GET: Display a form to edit a food item
 get '/foods/:id/edit' do
+	@food = Food.find(params[:id])
+	erb :'foods/edit'
 end
 
 # UPDATE/PATCH: Updates a food item
 patch '/foods/:id' do
+	food = Food.find(params[:id])
+	food.update(params[:food])
+	redirect '/foods/#{food.id}'
 end
 
 # DESTROY: Deletes a food item
 delete '/foods/:id' do
+	Food.delete(params[:id])
+	redirect '/foods'
 end
 
 # GET: Displays a list of all parties
 get '/parties' do
+	@parties = Party.all
+	erb :index
 end
 
 # GET: Display a single party and options for adding a food item to the party
 get '/parties/:id' do
+	@party = Party.find(params[:id])
+	erb :'parties/show'
 end
 
 # GET: Display a form for a new party
-get '/parties/new'
+get '/parties/new' do
+	erb :'parties/new'
 end
 
 # CREATE/POST: Creates a new party
 post '/parties' do
+	party = Party.create(params[:party])
+	redirect '/parties'
 end
 
 # GET: Display a form to edit a party's details
 get '/parties/:id/edit' do
+	@party = Party.find(params[:id])
+	erb :'parties/edit'
 end
 
 # UPDATE/PATCH: Updates a party's details
 patch '/parties/:id' do
+	party = Party.find(params[:id])
+	party.update(params[:party])
+	redirect '/parties/#{party.id}'
 end
 
 # DESTROY: Delete a party
 delete '/parties/:id' do
+	Party.destroy(params[:id])
+	redirect '/parties'
 end
 
 # CREATE/POST: Create a new order
@@ -101,7 +120,7 @@ end
 # UPDATE/PATCH: Marks that the party has paid
 patch '/parties/:id/checkout' do
 end
- 
+
 
 
 
