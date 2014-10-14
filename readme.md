@@ -1,1 +1,1 @@
-#RESTaurtant!
+#RESTaurant!
