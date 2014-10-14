@@ -1,0 +1,8 @@
+<h2><%= @party.name %> ... is a new party</h2>
+
+<a href="/parties/<%= @party.id %>/edit">edit this party</a>
+
+<form action="/parties/<%= @party.id %>" method="post">
+	<input type="hidden" name="_method" value="delete"/>
+	<input type="submit" value="This party has left"/>
+</form>

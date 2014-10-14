@@ -1,0 +1,9 @@
+<form action="/parties/<%= @party.id %>" method="post">
+	<input type="hidden" name="_method" value="patch"/>
+	<input type="text" name="party[name]" value="<%= @party.name %>"/>
+	<input type="text" name="party[size]" value="<%= @party.size %>"/>
+	<input type="text" name="party[table]" value="<%= @party.table %>"/>
+	<input type="text" name="party[paid]" value="<%= @party.paid %>"/>
+	<input type="submit">
+
+</form>
