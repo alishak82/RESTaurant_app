@@ -62,18 +62,18 @@ end
 # GET: Displays a list of all parties
 get '/parties' do
 	@parties = Party.all
-	erb :index
+	erb :'parties/index'
+end
+
+# GET: Display a form for a new party
+get '/parties/new' do
+	erb :'parties/new'
 end
 
 # GET: Display a single party and options for adding a food item to the party
 get '/parties/:id' do
 	@party = Party.find(params[:id])
 	erb :'parties/show'
-end
-
-# GET: Display a form for a new party
-get '/parties/new' do
-	erb :'parties/new'
 end
 
 # CREATE/POST: Creates a new party
@@ -120,23 +120,3 @@ end
 # UPDATE/PATCH: Marks that the party has paid
 patch '/parties/:id/checkout' do
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
