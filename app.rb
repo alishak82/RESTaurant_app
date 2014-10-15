@@ -14,6 +14,7 @@ ActiveRecord::Base.establish_connection({
 
 # GET: Displays links to navigate the application(including links to each current party)
 get '/' do 	
+	erb :index
 end
 
 # GET: Display a list of food items available
@@ -30,6 +31,7 @@ end
 # GET: Display a single food item and a list of all the parties that included it
 get '/foods/:id' do
 	@food = Food.find(params[:id])
+	@foods_show_parties = @food.parties
 	# @parties = @food.parties
 	erb :'foods/show'
 end
@@ -50,7 +52,7 @@ end
 patch '/foods/:id' do
 	food = Food.find(params[:id])
 	food.update(params[:food])
-	redirect '/foods/#{food.id}'
+	redirect "/foods/#{food.id}"
 end
 
 # DESTROY: Deletes a food item
@@ -92,7 +94,7 @@ end
 patch '/parties/:id' do
 	party = Party.find(params[:id])
 	party.update(params[:party])
-	redirect '/parties/#{party.id}'
+	redirect "/parties/#{party.id}"
 end
 
 # DESTROY: Delete a party
@@ -102,15 +104,26 @@ delete '/parties/:id' do
 end
 
 # CREATE/POST: Create a new order
-post '/orders' do
+post '/parties/:id/orders' do
+	# party = Party.find(params[:parties_id])
+	# food = Food.find(params[:foods_id])
+	food = Food.where(name: params[:food_name])
+	party = Party.find(params[:id])
+	party.foods << food
+	redirect "/parties/#{party.id}"
 end
 
 # UPDATE/PATCH: Change item to no-charge
-patch '/orders/:id' do
-end
+# patch '/orders/:id' do
+# 	order = Order.find(params[:id])
+# 	order.update(params[:party]) !!!!!!
+# 	redirect '/orders/#{order.id}'
+# end
 
 # DESTROY: Delete/Remove an order
 delete '/orders' do
+	Order.destroy(params[:id])
+	redirect '/orders'
 end
 
 # GET: Saves the party's receipt data to a file. Displays the content of the receipt. Offers the file for download.

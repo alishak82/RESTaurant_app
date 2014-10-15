@@ -1,7 +1,23 @@
-<h2><%= @food.name %> ... is on the menu</h2>
+<h2>Our <%= @food.name %> is $<%= @food.price %></h2>
+<h4><%= @food.description %></h4>
 
-<a href="/foods/<%= @food.id %>/edit">edit</a>
 
+
+
+
+<p>
+<form action="/foods/<%= @food.id %>/edit" method="get">
+	<input type="submit" value="Edit this item">
+</form> 
+
+
+<p>
+<form action="/foods" method="get">
+	<input type="submit" value="Back to Menu Items">
+</form> 
+
+
+<p>
 <form action="/foods/<%= @food.id %>" method="post">
 	<input type="hidden" name="_method" value="delete"/>
 	<input type="submit" value="We no longer offer this item!"/>

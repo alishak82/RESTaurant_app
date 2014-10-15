@@ -1,8 +1,25 @@
-<h2><%= @party.name %> ... is a new party</h2>
+<h2><%= @party.name %> ... party of <%= @party.size %></h2>
 
-<a href="/parties/<%= @party.id %>/edit">edit this party</a>
 
-<form action="/parties/<%= @party.id %>" method="post">
+<form action="/parties/<%= @party.id %>/orders" method="post">
+	<!-- <input type="hidden" name="_method" value="delete"/> -->
+	<p>
+	What does the <%= @party.name %> party want to eat:
+	<input name="food_name" placeholder="type your menu item">
+	<input type="submit" value="Add this to the order"/>
+</form>
+
+<form action="/parties/<%= @party.id %>/edit" method="get">
+	<input type="submit" value="Edit this party">
+</form>
+
+<p>
+	<form action="/parties/<%= @party.id %>" method="post">
 	<input type="hidden" name="_method" value="delete"/>
 	<input type="submit" value="This party has left"/>
 </form>
+
+<p>
+<form action="/" method="get">
+  <input type="submit" value="Take me home">
+</form> 
