@@ -1,0 +1,9 @@
+body {
+	background-color: lightblue;
+}
+
+.food-list{
+	width: 25%;
+	border: 1px solid green;
+	display: inline-block;
+}

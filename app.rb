@@ -39,7 +39,11 @@ end
 # CREATE/POST: Creates a new food item
 post '/foods' do
 	food = Food.create(params[:food])
+	if food.valid?
 	redirect '/foods'
+	else @errors = food.errors.full_messages
+	erb :'foods/new'
+	end
 end
 
 # GET: Display a form to edit a food item
@@ -74,7 +78,9 @@ end
 
 # GET: Display a single party and options for adding a food item to the party
 get '/parties/:id' do
-	@party = Party.find(params[:id])
+	@foods = Food.all # ALL the food... on their bill or not
+	@party = Party.find(params[:id])  # Which exact party are we looking at
+	@orders = @party.orders # What has that table already ordered
 	erb :'parties/show'
 end
 
@@ -107,9 +113,10 @@ end
 post '/parties/:id/orders' do
 	# party = Party.find(params[:parties_id])
 	# food = Food.find(params[:foods_id])
-	food = Food.where(name: params[:food_name])
+	food = Food.find(params[:food_id])
 	party = Party.find(params[:id])
-	party.foods << food
+	Order.create({food: food, party: party})
+
 	redirect "/parties/#{party.id}"
 end
 
@@ -121,14 +128,20 @@ end
 # end
 
 # DESTROY: Delete/Remove an order
-delete '/orders' do
+delete '/parties/:party_id/orders/:id' do
 	Order.destroy(params[:id])
-	redirect '/orders'
+	redirect "/parties/#{params['party_id']}"
 end
 
 # GET: Saves the party's receipt data to a file. Displays the content of the receipt. Offers the file for download.
 get '/parties/:id/receipt' do
+  @party = Party.find(params[:id])
+	@food = Food.find(params[:id])
+	@party.foods 
+
+	erb :'parties/receipt'
 end
+
 
 # UPDATE/PATCH: Marks that the party has paid
 patch '/parties/:id/checkout' do

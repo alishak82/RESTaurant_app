@@ -1,0 +1,65 @@
+<h2>
+	Receipt for <%= @party.name %> for Table <%= @party.table_number %>
+</h2>
+
+<h6>
+	<%= Time.now.strftime("on %m/%d/%Y at %I:%M%p") %>
+</h6>
+
+<table>
+	<tr>
+		<th>
+			Food Ordered
+		</th>
+		<th>
+			Price
+		</th>
+	</tr>
+	<% total = 0 %>
+	<% @party.foods.each do |food| %>	
+		<tr>
+			<td>
+				<%= food.name %>
+			</td>
+			<td>
+				$<%= food.price.round(2) %>
+			</td>
+		</tr>
+	<% total += food.price %>	
+	<% end %>
+	<tr>
+		<th>
+			TOTAL
+		</th>
+		<th>
+			$<%= total.round(2) %>
+		</th>
+	</tr>
+	<tr>
+		<th>
+			Tip Suggestions
+		</th>
+	</tr>	
+	<tr>
+		<td>
+			15% = $<%= (total * 0.15).round(2) %>
+		</td>
+		<td>
+			20% = $<%= (total * 0.2).round(2) %>
+		</td>
+		<td>
+			25% = $<%= (total * 0.25).round(2) %>
+		</td>
+	</tr>
+</table>
+
+<h5>
+	Thank you for your patronage! Please come again!
+</h5>	
+
+
+<a href="javascript:if(window.print)window.print()">Print</a>
+
+<form action="/" method="get">
+  <input type="submit" value="Home">
+</form> 

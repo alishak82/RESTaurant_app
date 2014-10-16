@@ -1,25 +1,27 @@
-<h1>Add New Party</h1>
+<h1>Add A New Party</h1>
 
 <form action="/parties" name="method" method="post">
 	<p>
-    PARTY NAME:
+    Party Name:
     <input type="text" name="party[name]" placeholder="name of party"></input>
   </p>
   <p>
-    SIZE OF PARTY:
+    Size of Party:
     <input type="text" name="party[size]" placeholder="how many people?"></input>
   </p>
   <p>
-    TABLE NUMBER:
+    Table Number:
     <input type="text" name="party[table_number]" placeholder="what table number?"></input>
   </p>
   <p>
-    HAS PAID:
+    Has Paid?:
     <input type="text" name="party[has_paid]" placeholder="true/false"></input>
-  </p>
+
+</p>
   <input type="submit" value="Add this party">
 </form>
 
+<p>
 <form action="/" method="get">
   <input type="submit" value="Nevermind">
 </form> 

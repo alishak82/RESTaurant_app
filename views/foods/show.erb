@@ -7,7 +7,7 @@
 
 <p>
 <form action="/foods/<%= @food.id %>/edit" method="get">
-	<input type="submit" value="Edit this item">
+	<input type="submit" value="Edit this food item">
 </form> 
 
 
@@ -20,5 +20,5 @@
 <p>
 <form action="/foods/<%= @food.id %>" method="post">
 	<input type="hidden" name="_method" value="delete"/>
-	<input type="submit" value="We no longer offer this item!"/>
+	<input type="submit" value="We no longer offer this item"/>
 </form>
