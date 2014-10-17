@@ -1,5 +1,5 @@
 <h2>
-	Receipt for <%= @party.name %> for Table <%= @party.table_number %>
+	Receipt for <%= @party.name %> at Table <%= @party.table_number %>
 </h2>
 
 <h6>
@@ -45,7 +45,7 @@
 			15% = $<%= (total * 0.15).round(2) %>
 		</td>
 		<td>
-			20% = $<%= (total * 0.2).round(2) %>
+			20% = $<%= (total * 0.20).round(2) %>
 		</td>
 		<td>
 			25% = $<%= (total * 0.25).round(2) %>
@@ -58,7 +58,7 @@
 </h5>	
 
 
-<a href="javascript:if(window.print)window.print()">Print</a>
+<a href="javascript:if(window.print)window.print()">Print Receipt</a>
 
 <form action="/" method="get">
   <input type="submit" value="Home">

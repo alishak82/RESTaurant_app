@@ -100,7 +100,12 @@ end
 patch '/parties/:id' do
 	party = Party.find(params[:id])
 	party.update(params[:party])
+	if party.has_paid == true
+		@error_has_paid = "This party has already paid and can no longer order additional food items."
+		erb :'parties/show'
+	else
 	redirect "/parties/#{party.id}"
+end
 end
 
 # DESTROY: Delete a party
@@ -114,10 +119,25 @@ post '/parties/:id/orders' do
 	# party = Party.find(params[:parties_id])
 	# food = Food.find(params[:foods_id])
 	food = Food.find(params[:food_id])
-	party = Party.find(params[:id])
-	Order.create({food: food, party: party})
-
-	redirect "/parties/#{party.id}"
+	@party = Party.find(params[:id])
+	@foods = Food.all
+	@orders = @party.orders
+	# if party.has_paid == true
+	# 	@error_has_paid = "This party has already paid and can no longer order additional food items."
+	# 	erb :'parties/show'
+	# else
+	order = Order.create({food: food, party: @party})
+	if order.valid? == false
+	 	begin 
+			raise "This party has already paid"
+		rescue 
+      @errors = order.errors.full_messages
+		end
+		erb :'parties/show'
+	else
+    redirect "/parties/#{@party.id}"
+	end
+	# end
 end
 
 # UPDATE/PATCH: Change item to no-charge
@@ -135,7 +155,7 @@ end
 
 # GET: Saves the party's receipt data to a file. Displays the content of the receipt. Offers the file for download.
 get '/parties/:id/receipt' do
-  @party = Party.find(params[:id])
+  	@party = Party.find(params[:id])
 	@food = Food.find(params[:id])
 	@party.foods 
 
@@ -145,4 +165,8 @@ end
 
 # UPDATE/PATCH: Marks that the party has paid
 patch '/parties/:id/checkout' do
+	party = Party.find(params[:id])
+	party.has_paid = true
+	party.save
+	redirect "/parties/#{party.id}"
 end
