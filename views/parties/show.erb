@@ -1,6 +1,5 @@
-<h2><%= @party.name %> ... party of <%= @party.size %> 	
-	Table Number: <%= @party.table_number %> Has Paid? <%= @party.has_paid %>
-</h2>
+<h2>Party Name: <%= @party.name %> ... party of <%= @party.size %></h2> 	
+<h3>Party Info: Table: <%= @party.table_number %> Server Name: <%= @party_waitstaff %> Has Paid? <%= @party.has_paid %></h3>
 
 <% if @errors %>
 <%= @errors %>
@@ -12,6 +11,7 @@
 
 
 <div class='food-list'>
+	<h3><u> Menu Items </u></h3>
 	<ul>
 		<% @foods.each do |food| %>
 			<li>
@@ -25,21 +25,23 @@
 </div>
 
 <div class='food-list'>
+	<h3><u><%= @party.name %> Order</u></h3>
 	<ul>
 		<% @orders.each do |order| %>
 			<li>
 				
 				<form action="/parties/<%= @party.id %>/orders/<%= order.id %>" method='post'/>
 					<input type="hidden" name="_method" value="delete"/>
-					<h3>
+					<h4>
 						<input type="submit" value='X'/>
 						<%= order.food.name %>
-					</h3>
+					</h4>
 				</form>
 			</li>
 		<% end %>
 	</ul>
 </div>
+
 
 <p>
 	<form action="/parties/<%= @party.id %>/receipt" method="get">

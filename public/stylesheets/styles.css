@@ -1,9 +1,34 @@
 body {
-	background-color: lightblue;
+	background-image: url('http://i.imgur.com/PPGy0D6.jpg');
+	color: white;
+	padding: 20px 40px;
+	font-family: Helvetica;
 }
 
 .food-list{
-	width: 25%;
-	border: 1px solid green;
+	width: 250px;
+	border: 5px solid white;
 	display: inline-block;
+}
+
+.food-list h3 {
+	text-align: center;
+}
+.receipt {
+	width: 330px;
+	border: 3px dashed white;
+	padding: 20px;
+}
+
+.partyname ul li a {
+/*	text-decoration: none;*/
+	color: white;
+}
+
+.home a {
+	color: white;
+}
+
+.menu a {
+	color: white;
 }

@@ -1,3 +1,4 @@
+<div class='receipt'
 <h2>
 	Receipt for <%= @party.name %> at Table <%= @party.table_number %>
 </h2>
@@ -35,31 +36,43 @@
 			$<%= total.round(2) %>
 		</th>
 	</tr>
+	<h4>
 	<tr>
 		<th>
 			Tip Suggestions
 		</th>
 	</tr>	
+	</h4>
 	<tr>
-		<td>
+			<tr>
+				<td>
 			15% = $<%= (total * 0.15).round(2) %>
-		</td>
-		<td>
+				</td>
+			</tr>
+			<tr>
+				<td>
 			20% = $<%= (total * 0.20).round(2) %>
-		</td>
-		<td>
+				</td>
+			</tr>
+			<tr>
+				<td>
 			25% = $<%= (total * 0.25).round(2) %>
-		</td>
-	</tr>
+				</td>
+		</tr>
 </table>
 
 <h5>
-	Thank you for your patronage! Please come again!
+	Thank you for your patronage! Please come again! 
 </h5>	
+</div>
 
 
-<a href="javascript:if(window.print)window.print()">Print Receipt</a>
+<p>
+	<form action="javascript:if(window.print)window.print()">
+		<input type="submit" value="Print Receipt">
+	</form>
 
+<p>
 <form action="/" method="get">
-  <input type="submit" value="Home">
+  <input type="submit" value="Home Page">
 </form> 

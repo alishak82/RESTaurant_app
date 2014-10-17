@@ -1,5 +1,6 @@
 <h2>Food Items on the Menu</h2>
 
+<div class='menu'>
 <ul>
 	<% @foods.each do |food| %>
 	<li>
@@ -9,6 +10,7 @@
 	</li>
 	<% end %>
 </ul>
+</div>
 
 
 <form action="/foods/new" method="get">
@@ -17,5 +19,5 @@
 
 <p>
 <form action="/" method="get">
-  <input type="submit" value="Back to Home Page">
+  <input type="submit" value="Home Page">
 </form> 
